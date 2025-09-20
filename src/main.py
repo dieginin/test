@@ -29,8 +29,9 @@ def main(page: ft.Page):
     res = fb.get_user_by_field("username", "diego")
     page.add(
         ft.Text(res.type),
-        ft.Text(os.getenv("FIREBASE_API_KEY", None)),
-        ft.Text(os.getenv("FIREBASE_PROJECT_ID", None)),
+        ft.Text(os.getenv("FIREBASE_API_KEY")),
+        ft.Text(os.getenv("FIREBASE_PROJECT_ID")),
+        ft.Text(os.getenv("FIREBASE_PROJECT_ID2")),
     )
 
 
