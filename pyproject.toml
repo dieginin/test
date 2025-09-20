@@ -1,0 +1,21 @@
+[project]
+name = "HubSync"
+version = "0.1.0"
+description = "Carefree Cultivations gestion PWA"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "NextBale", email = "diegobalestra9@gmail.com" }]
+dependencies = ["flet==0.28.3"]
+
+[tool.flet]
+org = "com.nextbale"
+product = "HubSync"
+company = "NextBale"
+copyright = "Copyright HubSync Ⓒ 2025 by NextBale"
+
+[tool.flet.app]
+path = "src"
+boot_screen.show = true
+boot_screen.message = "Preparing the app for its first launch…"
+startup_screen.show = true
+startup_screen.message = "Starting up the app…"
