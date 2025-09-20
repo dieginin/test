@@ -3,6 +3,9 @@ import re
 import time
 
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 API_KEY = os.getenv("FIREBASE_API_KEY")
 PROJECT_ID = os.getenv("FIREBASE_PROJECT_ID")

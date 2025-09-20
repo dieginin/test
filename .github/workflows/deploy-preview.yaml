@@ -3,7 +3,7 @@ name: Deploy Preview
 on:
   push:
     branches-ignore:
-      - 'main'
+      - main
   workflow_dispatch:
 
 env:
