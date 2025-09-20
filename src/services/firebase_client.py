@@ -4,8 +4,8 @@ import time
 
 import requests
 
-API_KEY = os.getenv("FIREBASE_API_KEY")
-PROJECT_ID = os.getenv("FIREBASE_PROJECT_ID")
+API_KEY = os.environ["FIREBASE_API_KEY"]
+PROJECT_ID = os.environ["FIREBASE_PROJECT_ID"]
 DB_URL = f"https://{PROJECT_ID}-default-rtdb.firebaseio.com"
 
 
