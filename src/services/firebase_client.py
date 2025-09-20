@@ -14,7 +14,7 @@ class FirebaseResponse:
 
 class FirebaseClient:
     def __init__(self):
-        self.api_key = "AIzaSyBauqN8Ij19A3NuCJLImXX0GAhwX49uTR4"
+        self.key = "AIzaSyBauqN8Ij19A3NuCJLImXX0GAhwX49uTR4"
         self.db_url = "https://hubsync-25-default-rtdb.firebaseio.com"
 
     # --- Helpers ---
@@ -26,7 +26,7 @@ class FirebaseClient:
 
     def __refresh_token(self, refresh_token: str) -> FirebaseResponse:
         try:
-            url = f"https://securetoken.googleapis.com/v1/token?key={self.api_key}"
+            url = f"https://securetoken.googleapis.com/v1/token?key={self.key}"
             res = requests.post(
                 url,
                 data={"grant_type": "refresh_token", "refresh_token": refresh_token},
@@ -54,7 +54,7 @@ class FirebaseClient:
         if existing.type == "success" and existing.data:
             return FirebaseResponse("error", "Username already in use")
         try:
-            url = f"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={self.api_key}"
+            url = f"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={self.key}"
             payload = {
                 "email": email,
                 "password": "carefree",
@@ -94,7 +94,7 @@ class FirebaseClient:
             if not email:
                 return FirebaseResponse("error", "No email associated with username")
         try:
-            url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={self.api_key}"
+            url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={self.key}"
             payload = {"email": email, "password": password, "returnSecureToken": True}
             res = requests.post(url, json=payload)
             res.raise_for_status()
@@ -109,7 +109,7 @@ class FirebaseClient:
 
     def send_password_reset_email(self, email: str) -> FirebaseResponse:
         try:
-            url = f"https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key={self.api_key}"
+            url = f"https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key={self.key}"
             payload = {"requestType": "PASSWORD_RESET", "email": email}
             res = requests.post(url, json=payload)
             res.raise_for_status()
@@ -142,7 +142,7 @@ class FirebaseClient:
     def delete_user(self, id_token: str) -> FirebaseResponse:
         try:
             uid = self.get_account_info(id_token)["localId"]
-            url = f"https://identitytoolkit.googleapis.com/v1/accounts:delete?key={self.api_key}"
+            url = f"https://identitytoolkit.googleapis.com/v1/accounts:delete?key={self.key}"
             res = requests.post(url, json={"idToken": id_token})
             res.raise_for_status()
             self.__delete_user(uid, id_token=id_token)
@@ -152,7 +152,9 @@ class FirebaseClient:
 
     # --- Internos DB/REST ---
     def get_account_info(self, id_token: str) -> dict:
-        url = f"https://identitytoolkit.googleapis.com/v1/accounts:lookup?key={self.api_key}"
+        url = (
+            f"https://identitytoolkit.googleapis.com/v1/accounts:lookup?key={self.key}"
+        )
         res = requests.post(url, json={"idToken": id_token})
         res.raise_for_status()
         return res.json()["users"][0]
@@ -187,12 +189,14 @@ class FirebaseClient:
         requests.delete(url).raise_for_status()
 
     def __send_email_verification(self, id_token: str):
-        url = f"https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key={self.api_key}"
+        url = f"https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key={self.key}"
         payload = {"requestType": "VERIFY_EMAIL", "idToken": id_token}
         requests.post(url, json=payload).raise_for_status()
 
     def __update_display_name(self, id_token: str, display_name: str):
-        url = f"https://identitytoolkit.googleapis.com/v1/accounts:update?key={self.api_key}"
+        url = (
+            f"https://identitytoolkit.googleapis.com/v1/accounts:update?key={self.key}"
+        )
         payload = {
             "idToken": id_token,
             "displayName": display_name,
