@@ -8,7 +8,7 @@ def main(page: ft.Page):
     fb = firebase_client.FirebaseClient()
 
     def increment_click(e):
-        counter.data += 1
+        counter.data += 2
         counter.value = str(counter.data)
         counter.update()
 
