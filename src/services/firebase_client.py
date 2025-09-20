@@ -4,10 +4,6 @@ import time
 
 import requests
 
-API_KEY = os.environ.get("FIREBASE_API_KEY")
-PROJECT_ID = os.environ.get("FIREBASE_PROJECT_ID")
-DB_URL = f"https://{PROJECT_ID}-default-rtdb.firebaseio.com"
-
 
 class FirebaseResponse:
     def __init__(self, type: str, message: str = "", data: dict | None = None) -> None:
@@ -18,8 +14,8 @@ class FirebaseResponse:
 
 class FirebaseClient:
     def __init__(self):
-        self.api_key = API_KEY
-        self.db_url = DB_URL
+        self.api_key = "AIzaSyBauqN8Ij19A3NuCJLImXX0GAhwX49uTR4"
+        self.db_url = "https://hubsync-25-default-rtdb.firebaseio.com"
 
     # --- Helpers ---
     def __is_token_expired(self, token_info: dict) -> bool:
@@ -202,4 +198,5 @@ class FirebaseClient:
             "displayName": display_name,
             "returnSecureToken": True,
         }
+        requests.post(url, json=payload).raise_for_status()
         requests.post(url, json=payload).raise_for_status()
