@@ -1,3 +1,5 @@
+import os
+
 import flet as ft
 
 from services import firebase_client
@@ -25,7 +27,11 @@ def main(page: ft.Page):
         )
     )
     res = fb.get_user_by_field("username", "diego")
-    page.add(ft.Text(res.type), ft.Text(res.message))
+    page.add(
+        ft.Text(res.type),
+        ft.Text(os.environ.get("FIREBASE_API_KEY")),
+        ft.Text(os.environ.get("FIREBASE_PROJECT_ID")),
+    )
 
 
 ft.app(main)
