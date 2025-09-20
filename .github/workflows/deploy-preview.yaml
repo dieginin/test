@@ -37,7 +37,7 @@ jobs:
 
       - name: Build app
         shell: bash
-        run: flet build web -o dist
+        run: flet build web -o dist -pre
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4.6.2
